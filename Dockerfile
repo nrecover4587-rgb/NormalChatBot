@@ -1,12 +1,14 @@
-FROM python:latest
+FROM python:3.10-slim
 
 RUN apt-get update -y && apt-get upgrade -y
 
-RUN pip3 install -U pip
+WORKDIR /app
 
-COPY . /app/
-WORKDIR /app/
-RUN pip3 install -U -r requirements.txt
+COPY requirements.txt .
+RUN pip install --upgrade pip && pip install -r requirements.txt
 
-CMD python3 -m NoxxNetwork
+COPY . .
+
+CMD ["python3", "-m", "NoxxNetwork"]
+
 
